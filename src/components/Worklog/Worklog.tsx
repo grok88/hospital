@@ -37,7 +37,7 @@ const Worklog: React.FC = React.memo(() => {
 
     useEffect(() => {
         dispatch(setWorklogTC(Number(id)));
-    }, []);
+    }, [id]);
 
     if (isLoading) {
         return <div className={classes.progress}>
