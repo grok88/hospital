@@ -1,9 +1,10 @@
 import {Dispatch} from 'redux';
 import {getEmployees, getWorklog} from '../api';
+import {refactorData} from '../utils/utils';
 
 type SetEmployees = ReturnType<typeof setEmployees>;
 type SetWorklog = ReturnType<typeof setWorklog>;
-type SetIsLoading = ReturnType<typeof setIsLoading>;
+export type SetIsLoading = ReturnType<typeof setIsLoading>;
 
 type Actions = SetEmployees | SetWorklog | SetIsLoading;
 
@@ -74,23 +75,14 @@ export const setWorklog = (worklog: Array<WorklogType>) => {
     } as const;
 }
 
-function refactorData(employees: Array<EmployeesType>) {
-    return employees.map(e => {
-        let birthDate = e.birthDate.split('-').reverse().join('.');
-        return {...e, birthDate}
-    }).sort((a, b) => a.lastName > b.lastName ? 1 : -1);
-}
-
 //thunk
 export const setEmployeesTC = () => async (dispatch: Dispatch<Actions>) => {
 
     try {
         dispatch(setIsLoading(true));
         let res = await getEmployees();
-        res = refactorData(res);
-        dispatch(setEmployees(res));
+        dispatch(setEmployees(refactorData(res)));
     } catch (e) {
-        // alert(e.message);
         throw new Error(e.message)
     } finally {
         dispatch(setIsLoading(false));

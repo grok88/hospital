@@ -1,10 +1,11 @@
 import React from 'react';
-import {EmployeesType, setWorklogTC} from '../../redux/appReducer';
+import {EmployeesType} from '../../redux/appReducer';
 import {Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import EmployeesTable from './EmployeesTable/EmployeesTable';
-import {useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
+import {AppRootStateType} from '../../redux/store';
 
 
 const useStyles = makeStyles({
@@ -13,18 +14,11 @@ const useStyles = makeStyles({
     }
 });
 
-type EmployeesPropsType = {
-    employees: Array<EmployeesType>
-}
+type EmployeesPropsType = {}
 
-const Employees: React.FC<EmployeesPropsType> = React.memo(({employees}) => {
+const Employees: React.FC<EmployeesPropsType> = React.memo(() => {
     const classes = useStyles();
-    const dispatch = useDispatch();
-
-
-    const onClickHandler = (id:number) =>{
-        dispatch(setWorklogTC(id))
-    }
+    const employees = useSelector<AppRootStateType, Array<EmployeesType>>(state => state.app.employees);
 
     return (<>
             <Grid item xs={12} className={classes.titleContainer}>
@@ -32,8 +26,8 @@ const Employees: React.FC<EmployeesPropsType> = React.memo(({employees}) => {
                     Employees
                 </Typography>
             </Grid>
-            <Grid item xs={12} >
-                <EmployeesTable employees={employees} onClickHandler={onClickHandler}/>
+            <Grid item xs={12}>
+                <EmployeesTable employees={employees}/>
             </Grid>
         </>
     );

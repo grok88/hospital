@@ -31,10 +31,9 @@ const useStyles = makeStyles({
 
 type EmployeesTablePropsType = {
     employees: Array<EmployeesType>
-    onClickHandler:(id:number) => void
 }
 
-const EmployeesTable: React.FC<EmployeesTablePropsType> = ({employees,onClickHandler}) => {
+const EmployeesTable: React.FC<EmployeesTablePropsType> = ({employees}) => {
     const classes = useStyles();
 
     return (
@@ -53,7 +52,7 @@ const EmployeesTable: React.FC<EmployeesTablePropsType> = ({employees,onClickHan
                             <TableCell component="th" scope="row">
                                 {employee.id}
                             </TableCell>
-                            <TableCell align="right" onClick={() =>onClickHandler(employee.id)}><NavLink to={'/worklog/${employee.id}'}>{employee.lastName} {employee.firstName} {employee.middleName}</NavLink></TableCell>
+                            <TableCell align="right" ><NavLink to={`/worklog/${employee.id}`}>{employee.lastName} {employee.firstName} {employee.middleName}</NavLink></TableCell>
                             <TableCell align="right">{employee.birthDate}</TableCell>
                         </TableRow>
                     ))}

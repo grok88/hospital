@@ -2,11 +2,13 @@ import React, {Component} from 'react';
 import {EmployeesType, setEmployeesTC, setWorklogTC, WorklogType} from './redux/appReducer';
 import {connect} from 'react-redux';
 import {AppRootStateType} from './redux/store';
-import {Redirect, Route} from 'react-router-dom';
+import {Redirect, Route, Switch} from 'react-router-dom';
 import Employees from './components/Employees/Employees';
 import Worklog from './components/Worklog/Worklog';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import PageNotFound from './components/404/PageNotFound';
+
 
 type AppPropsType = MapStateToPropsType & MapDispatchToPropsType;
 
@@ -23,7 +25,6 @@ class App extends Component<AppPropsType> {
             loading: false
         });
         this.props.setEmployeesTC();
-        // this.props.setWorklogTC();
     }
 
     render() {
@@ -38,11 +39,12 @@ class App extends Component<AppPropsType> {
             <Grid container>
                 <Grid item xs={12}>
                     <div>
-                        {/*<Route path={'/'} exact render={() => <Redirect to={'/employees'}/>}/>*/}
-
-
-                        <Route path={'/'} exact render={() => <Employees employees={this.props.employees}/>}/>
-                        <Route path={'/worklog/:id?'}  render={() => <Worklog/>}/>
+                        <Switch>
+                            <Route path={'/'} exact render={() => <Employees/>}/>
+                            <Route path={'/worklog/:id?'} render={() => <Worklog/>}/>
+                            <Route path={'/404'} render={() => <PageNotFound/>}/>
+                            <Route path={'*'} render={() => <Redirect to={'/404'}/>}/>
+                        </Switch>
                     </div>
                 </Grid>
             </Grid>
@@ -57,11 +59,14 @@ type MapStateToPropsType = {
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
         employees: state.app.employees,
-        worklog:state.app.worklog
+        worklog: state.app.worklog
     }
 }
 type MapDispatchToPropsType = {
     setEmployeesTC: () => void
-    setWorklogTC:(id:number) => void
+    setWorklogTC: (id: number) => void
 }
-export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppRootStateType>(mapStateToProps, {setEmployeesTC,setWorklogTC})(App);
+export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppRootStateType>(mapStateToProps, {
+    setEmployeesTC,
+    setWorklogTC
+})(App);

@@ -8,7 +8,6 @@ import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';
-import {NavLink} from 'react-router-dom';
 
 const StyledTableCell = withStyles((theme: Theme) =>
     createStyles({
@@ -29,10 +28,10 @@ const useStyles = makeStyles({
 });
 
 type WorklogTablePropsType = {
-    worklog:Array<WorklogType>
+    worklog: Array<WorklogType>
 }
 
-const WorklogTable:React.FC<WorklogTablePropsType> = React.memo(({worklog}) => {
+const WorklogTable: React.FC<WorklogTablePropsType> = React.memo(({worklog}) => {
     const classes = useStyles();
 
     return (
