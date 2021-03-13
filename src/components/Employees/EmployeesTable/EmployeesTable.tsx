@@ -1,5 +1,4 @@
 import React from 'react';
-import {EmployeesType} from '../../../redux/appReducer';
 import { makeStyles,Theme, createStyles,withStyles  } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import {NavLink} from 'react-router-dom';
+import { EmployeesType } from '../../../redux/employeesReducer';
 
 
 const StyledTableCell = withStyles((theme: Theme) =>

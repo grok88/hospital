@@ -4,9 +4,9 @@ import {Button, CircularProgress, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../redux/store';
-import {setWorklogTC, WorklogType} from '../../redux/appReducer';
 import WorklogTable from './WorklogTable/WorklogTable';
 import {NavLink, Redirect, useParams} from 'react-router-dom';
+import {setWorklogTC, WorklogType} from '../../redux/worklogReducer';
 
 const useStyles = makeStyles({
     titleContainer: {
@@ -15,8 +15,8 @@ const useStyles = makeStyles({
     btn: {
         marginTop: '24px'
     },
-    btnNavlink:{
-      textDecoration:'none'
+    btnNavlink: {
+        textDecoration: 'none'
     },
     progress: {
         display: 'flex',
@@ -30,7 +30,7 @@ type ParamTypes = {
 const Worklog: React.FC = React.memo(() => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const worklog = useSelector<AppRootStateType, Array<WorklogType>>(state => state.app.worklog);
+    const worklog = useSelector<AppRootStateType, Array<WorklogType>>(state => state.worklog.worklog);
     const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
 
     const {id} = useParams<ParamTypes>();
@@ -44,7 +44,7 @@ const Worklog: React.FC = React.memo(() => {
             <CircularProgress color="secondary"/>
         </div>
     }
-    if(!id){
+    if (!id) {
         return <Redirect to={'/'}/>
     }
     return (<>

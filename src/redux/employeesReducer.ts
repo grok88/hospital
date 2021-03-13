@@ -1,5 +1,5 @@
 import {Dispatch} from 'redux';
-import {getEmployees, getWorklog} from '../api';
+import {getEmployees} from '../api';
 import {refactorData} from '../utils/utils';
 import {setIsLoading, SetIsLoading} from './appReducer';
 
@@ -18,15 +18,13 @@ export type EmployeesType = {
     phone: string
 }
 
-
-
 const initialState = {
     employees: [] as Array<EmployeesType>
 }
 
 export const employeesReducer = (state: InitialEmployeesStateType = initialState, action: Actions): InitialEmployeesStateType => {
     switch (action.type) {
-        case 'SET-EMPLOYEES':
+        case 'EMPLOYEES/SET-EMPLOYEES':
             return {
                 ...state,
                 employees: action.employees
@@ -40,14 +38,13 @@ export const employeesReducer = (state: InitialEmployeesStateType = initialState
 
 export const setEmployees = (employees: Array<EmployeesType>) => {
     return {
-        type: 'SET-EMPLOYEES',
+        type: 'EMPLOYEES/SET-EMPLOYEES',
         employees
     } as const;
 }
 
 //thunk
 export const setEmployeesTC = () => async (dispatch: Dispatch<DispatchActions>) => {
-
     try {
         dispatch(setIsLoading(true));
         let res = await getEmployees();
@@ -59,4 +56,4 @@ export const setEmployeesTC = () => async (dispatch: Dispatch<DispatchActions>) 
     }
 }
 
-type DispatchActions = Actions & SetIsLoading;
+type DispatchActions = Actions | SetIsLoading;

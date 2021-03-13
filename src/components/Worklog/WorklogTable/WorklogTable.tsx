@@ -1,5 +1,4 @@
 import React from 'react';
-import {WorklogType} from '../../../redux/appReducer';
 import {createStyles, makeStyles, Theme, withStyles} from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -8,6 +7,7 @@ import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';
+import {WorklogType} from '../../../redux/worklogReducer';
 
 const StyledTableCell = withStyles((theme: Theme) =>
     createStyles({

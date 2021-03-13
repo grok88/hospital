@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {EmployeesType, setEmployeesTC, setWorklogTC, WorklogType} from './redux/appReducer';
 import {connect} from 'react-redux';
 import {AppRootStateType} from './redux/store';
 import {Redirect, Route, Switch} from 'react-router-dom';
@@ -8,6 +7,8 @@ import Worklog from './components/Worklog/Worklog';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import PageNotFound from './components/404/PageNotFound';
+import {EmployeesType, setEmployeesTC} from './redux/employeesReducer';
+import {setWorklogTC, WorklogType} from './redux/worklogReducer';
 
 
 type AppPropsType = MapStateToPropsType & MapDispatchToPropsType;
@@ -28,7 +29,6 @@ class App extends Component<AppPropsType> {
     }
 
     render() {
-
         const {loading} = this.state;
 
         if (loading) {
@@ -58,8 +58,8 @@ type MapStateToPropsType = {
 }
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
-        employees: state.app.employees,
-        worklog: state.app.worklog
+        employees: state.employees.employees,
+        worklog: state.worklog.worklog
     }
 }
 type MapDispatchToPropsType = {

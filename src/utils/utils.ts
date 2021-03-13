@@ -1,4 +1,4 @@
-import {EmployeesType} from '../redux/appReducer';
+import {EmployeesType} from '../redux/employeesReducer';
 
 export function refactorData(employees: Array<EmployeesType>) {
     return employees.map(e => {
