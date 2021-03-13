@@ -32,8 +32,11 @@ const Worklog: React.FC = React.memo(() => {
     const dispatch = useDispatch();
     const worklog = useSelector<AppRootStateType, Array<WorklogType>>(state => state.worklog.worklog);
     const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
+    const intersectionWorklog = useSelector<AppRootStateType, Array<WorklogType>>(state => state.worklog.intersectionWorklog);
 
     const {id} = useParams<ParamTypes>();
+
+    let employeeIntersection = intersectionWorklog.filter(item => item.employee_id === Number(id));
 
     useEffect(() => {
         dispatch(setWorklogTC(Number(id)));
@@ -55,7 +58,7 @@ const Worklog: React.FC = React.memo(() => {
                 </Typography>
             </Grid>
             <Grid item xs={12}>
-                <WorklogTable worklog={worklog}/>
+                <WorklogTable worklog={worklog} employeeIntersection={employeeIntersection}/>
             </Grid>
             <Grid item xs={12} className={classes.btn}>
                 <NavLink to={'/'} className={classes.btnNavlink}>

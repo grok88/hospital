@@ -18,20 +18,24 @@ const StyledTableCell = withStyles((theme: Theme) =>
         body: {
             fontSize: 14,
         },
+
     }),
 )(TableCell);
 
 const useStyles = makeStyles({
     table: {
         // minWidth: 650,
-    },
+    }, red: {
+        color: 'red'
+    }
 });
 
 type WorklogTablePropsType = {
     worklog: Array<WorklogType>
+    employeeIntersection: Array<WorklogType>
 }
 
-const WorklogTable: React.FC<WorklogTablePropsType> = React.memo(({worklog}) => {
+const WorklogTable: React.FC<WorklogTablePropsType> = React.memo(({worklog, employeeIntersection}) => {
     const classes = useStyles();
 
     return (
@@ -50,8 +54,10 @@ const WorklogTable: React.FC<WorklogTablePropsType> = React.memo(({worklog}) => 
                             <TableCell component="th" scope="row">
                                 {w.employee_id}
                             </TableCell>
-                            <TableCell align="right">{w.from}</TableCell>
-                            <TableCell align="right">{w.to}</TableCell>
+                            <TableCell align="right"
+                                       className={employeeIntersection.find(employee => employee.id === w.id) ? classes.red : ''}>{w.from}</TableCell>
+                            <TableCell align="right"
+                                       className={employeeIntersection.find(employee => employee.id === w.id) ? classes.red : ''}>{w.to}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
