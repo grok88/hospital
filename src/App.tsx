@@ -16,9 +16,6 @@ type AppPropsType = MapStateToPropsType & MapDispatchToPropsType;
 class App extends Component<AppPropsType> {
     state = {
         loading: true,
-        // employees: [],
-        // employees: this.props.employees,
-        // worklog: []
     };
 
     componentDidMount() {
